@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Tableur Shell SAE Paul :DISCROD:, Victor DELCROIX
 
 
@@ -10,9 +12,11 @@ sep_colone_out="$sep_colone"
 sep_ligne_out="$sep_ligne"
 inverse=0
 
-#Variables porgramme non paramètres
 colonne_out_spe=0
 ligne_out_spe=0
+
+# Variables programme non paramètres
+#* Continuer : https://linux.developpez.com/faq/?page=Commandes-avancees#Comment-lire-parcourir-un-fichier
 
 # Mise en place des paramètres de l'appel du tableur
 while [ $# -ne 0 ]
