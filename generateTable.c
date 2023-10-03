@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAXVALUE 100
+#define MAXVALUE 26
 #define stringSize 6
 
 #define lines 15
 #define cols 5
 
-char* random_char(n) {
+char* random_char(int n) {
     char* res = malloc(sizeof(char) * n);
     for (int i = 0; i < n; i++) {
-        res[i] = (unsigned char)random() % MAXVALUE;
+        res[i] = (unsigned char)random() % MAXVALUE + 'A';
     }
     return res;
 }
@@ -22,11 +22,12 @@ int main(void) {
 
     srand(time(NULL));
     FILE* table = NULL;
-    table = fopen("sampleTable", "w");
+    table = fopen("sampleTable.txt", "w");
     for (int i = 0; i < lines; i++) {
         for (int j = 0; i < cols; i++) {
             fprintf(table, "%s", random_char(stringSize));
-            fprintf(table, '');
+            fprintf(table, ":");
         }
+        fprintf(table, "\n");
     }
 }
