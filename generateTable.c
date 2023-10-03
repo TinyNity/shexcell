@@ -26,7 +26,7 @@ int main(void) {
     for (int i = 0; i<lines; i++) {
         for (int j = 0; i<cols; i++) {
             fprintf(table, "%s", random_char(stringSize));
-            fprintf(table, scin);
+            fprintf(table, '');
         }
     }
 
