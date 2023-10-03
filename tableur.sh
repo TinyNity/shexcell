@@ -161,7 +161,6 @@ do
 			sep_col="$1"
 			shift
 			;;
-
 		"-slin")
 			shift
 			sep_lig="$1"
