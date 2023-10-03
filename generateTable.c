@@ -24,10 +24,12 @@ int main(void) {
     FILE* table = NULL;
     table = fopen("sampleTable.txt", "w");
     for (int i = 0; i < lines; i++) {
-        for (int j = 0; i < cols; i++) {
+        for (int j = 0; j < cols; j++) {
             fprintf(table, "%s", random_char(stringSize));
-            fprintf(table, ":");
+            if (j != cols - 1) {
+                fprintf(table, "%c", scin);
+            }
         }
-        fprintf(table, "\n");
+        fprintf(table, "%c", slin);
     }
 }

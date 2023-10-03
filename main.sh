@@ -2,6 +2,12 @@
 
 # Tableur Shell SAE Paul :DISCROD:, Victor DELCROIX
 
+#\ De ce que je comprend, le tableau peut être infini, ce qui aide pas 
+#\ Impossible de le stocker dans un array donc 
+#\ Pas de liste possible en shell donc il va faloir faire les calculs a la mano
+#\ et stoker le tout dans un fichier res
+#\ Pour l'effet recursif du truc faudrai un fichier buffer qui est comparré au fichier "final"
+#\ Si ils sont identique on a fini le tableur (HYPER CHIANT)
 
 # Variables du programme utilisées pour les paramètres de la fonction
 feuille_in="Null"
