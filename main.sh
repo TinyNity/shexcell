@@ -9,6 +9,11 @@
 #\ Pour l'effet recursif du truc faudrai un fichier buffer qui est comparré au fichier "final"
 #\ Si ils sont identique on a fini le tableur (HYPER CHIANT)
 
+#! Liens Utiles
+#! https://linuxize.com/post/bash-if-else-statement/
+#! https://linuxize.com/post/bash-increment-decrement-variable/
+#! https://linuxhint.com/bash_operator_examples/#:~:text=Different%20types%20of%20operators%20exist,string%20operators%2C%20and%20file%20operators.
+
 # Variables du programme utilisées pour les paramètres de la fonction
 feuille_in="Null"
 feuille_out="Null"
@@ -23,6 +28,7 @@ ligne_out_spe=0
 
 # Variables programme non paramètres
 #* Continuer : https://linux.developpez.com/faq/?page=Commandes-avancees#Comment-lire-parcourir-un-fichier
+lignes_table=()
 
 # Mise en place des paramètres de l'appel du tableur
 while [ $# -ne 0 ]
@@ -75,12 +81,37 @@ do
         if [ $ligne_out_spe -eq 0 ]; then sep_ligne_out="$sep_ligne"; fi
 done
 
+# Lecture du fichier 
+while IFS="$sep_colone" read -r line
+do
+    lignes_table+=("$line")
+done < "$feuille_in"
+
+# Affichage du fichier
+reading_file_index=0
+echo "-----------------------------"
+for line in "${lignes_table[@]}"
+do
+    line_array=()
+    readarray -d "$sep_colone" -t line_array <<< "$line"
+    for ((n=0; n < ${#line_array[*]}; n++))
+    do
+        if [ "$n" -ne "$(("${#line_array[*]}"-1))" ]
+        then 
+            echo -n "|${line_array[n]}"
+        else 
+            echo "|"
+        fi
+    done
+    echo "-----------------------------"
+done
+
 
 # Test des paramètres
-echo "feuille_in     : $feuille_in"
-echo "feuille_out    : $feuille_out"
-echo "sep_colone     : $sep_colone"
-echo "sep_ligne      : $sep_ligne"
-echo "sep_colone_out : $sep_colone_out"
-echo "sep_ligne_out  : $sep_ligne_out"
-echo "inverse        : $inverse"
+# echo "feuille_in     : $feuille_in"
+# echo "feuille_out    : $feuille_out"
+# echo "sep_colone     : $sep_colone"
+# echo "sep_ligne      : $sep_ligne"
+# echo "sep_colone_out : $sep_colone_out"
+# echo "sep_ligne_out  : $sep_ligne_out"
+# echo "inverse        : $inverse"
