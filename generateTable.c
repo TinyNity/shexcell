@@ -24,10 +24,16 @@ int main(void) {
 
     int lines = 4;
     int cols = 4;
+    int command = 0;
 
     for (int i = 0; i < lines; i++) {
         for (int j = 0; j < cols; j++) {
-            fprintf(table, "%s", random_char(stringSize));  // (rand() % stringSize) + 1
+            command = 0;
+            if (rand() % 2 == 0){
+                fprintf(table, "%c", '=');
+                command = 1;
+            }
+            fprintf(table, "%s", random_char(stringSize - command));  // (rand() % stringSize) + 1
             if (j != cols - 1) {
                 fprintf(table, "%c", scin);
             }
