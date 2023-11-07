@@ -2,17 +2,21 @@
 
 # Tableur Shell SAE Paul :DISCROD:, Victor DELCROIX
 
-#\ De ce que je comprend, le tableau peut être infini, ce qui aide pas 
+#\ De ce que je comprends, le tableau peut être infini, ce qui aide pas 
 #\ Impossible de le stocker dans un array donc 
 #\ Pas de liste possible en shell donc il va faloir faire les calculs a la mano
-#\ et stoker le tout dans un fichier res
+#\ et stocker le tout dans un fichier res
 #\ Pour l'effet recursif du truc faudrai un fichier buffer qui est comparré au fichier "final"
 #\ Si ils sont identique on a fini le tableur (HYPER CHIANT)
 
-#! Liens Utiles
-#! https://linuxize.com/post/bash-if-else-statement/
-#! https://linuxize.com/post/bash-increment-decrement-variable/
-#! https://linuxhint.com/bash_operator_examples/#:~:text=Different%20types%20of%20operators%20exist,string%20operators%2C%20and%20file%20operators.
+#\ TODO : Faire une file (info de Nat [Ptn de bonne idée btw] [En fait non])
+#\ Juste mettre toutes les cellules dans une file, si une formule nous demande de faire plusieurs 
+#\ Calculs, le remettre dans la file jusqu'a ce que la file soit vide 
+
+#* Liens Utiles
+#* https://linuxize.com/post/bash-if-else-statement/
+#* https://linuxize.com/post/bash-increment-decrement-variable/
+#* https://linuxhint.com/bash_operator_examples/#:~:text=Different%20types%20of%20operators%20exist,string%20operators%2C%20and%20file%20operators.
 
 # Variables du programme utilisées pour les paramètres de la fonction
 feuille_in="Null"
@@ -87,24 +91,28 @@ do
     lignes_table+=("$line")
 done < "$feuille_in"
 
-# Affichage du fichier
-reading_file_index=0
-echo "-----------------------------"
-for line in "${lignes_table[@]}"
-do
-    line_array=()
-    readarray -d "$sep_colone" -t line_array <<< "$line"
-    for ((n=0; n < ${#line_array[*]}; n++))
-    do
-        if [ "$n" -ne "$(("${#line_array[*]}"-1))" ]
-        then 
-            echo -n "|${line_array[n]}"
-        else 
-            echo "|"
-        fi
-    done
+afficher_table(){
+    # Affichage du fichier
+    reading_file_index=0
     echo "-----------------------------"
-done
+    for line in "${lignes_table[@]}"
+    do
+        line_array=()
+        readarray -d "$sep_colone" -t line_array <<< "$line"
+        for ((n=0; n < ${#line_array[*]}; n++))
+        do
+            if [ "$n" -ne "$(("${#line_array[*]}"-1))" ]
+            then 
+                echo -n "|${line_array[n]}"
+            else 
+                echo "|"
+            fi
+        done
+        echo "-----------------------------"
+    done
+}
+
+afficher_table
 
 
 # Test des paramètres

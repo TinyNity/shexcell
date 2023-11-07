@@ -5,9 +5,6 @@
 #define MAXVALUE 26
 #define stringSize 6
 
-#define lines 15
-#define cols 5
-
 char* random_char(int n) {
     char* res = malloc(sizeof(char) * n);
     for (int i = 0; i < n; i++) {
@@ -21,11 +18,16 @@ int main(void) {
     const char slin = '\n';  // Séparateur de lignes
 
     srand(time(NULL));
-    FILE* table = NULL;
+
+    FILE* table;
     table = fopen("sampleTable.txt", "w");
+
+    int lines = 4;
+    int cols = 4;
+
     for (int i = 0; i < lines; i++) {
         for (int j = 0; j < cols; j++) {
-            fprintf(table, "%s", random_char(stringSize));
+            fprintf(table, "%s", random_char(stringSize));  // (rand() % stringSize) + 1
             if (j != cols - 1) {
                 fprintf(table, "%c", scin);
             }
