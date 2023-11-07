@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# Tableur Shell SAE Paul :DISCROD:, Victor DELCROIX
+#? Tableur Shell SAE Paul :DISCROD:, Victor DELCROIX
 
-#\ De ce que je comprends, le tableau peut être infini, ce qui aide pas 
-#\ Impossible de le stocker dans un array donc 
-#\ Pas de liste possible en shell donc il va faloir faire les calculs a la mano
-#\ et stocker le tout dans un fichier res
-#\ Pour l'effet recursif du truc faudrai un fichier buffer qui est comparré au fichier "final"
-#\ Si ils sont identique on a fini le tableur (HYPER CHIANT)
+#` De ce que je comprends, le tableau peut être infini, ce qui aide pas 
+#` Impossible de le stocker dans un array donc 
+#` Pas de liste possible en shell donc il va faloir faire les calculs a la mano
+#` et stocker le tout dans un fichier res
+#` Pour l'effet recursif du truc faudrai un fichier buffer qui est comparré au fichier "final"
+#` Si ils sont identique on a fini le tableur (HYPER CHIANT)
 
-#\ TODO : Faire une file (info de Nat [Ptn de bonne idée btw] [En fait non])
-#\ Juste mettre toutes les cellules dans une file, si une formule nous demande de faire plusieurs 
-#\ Calculs, le remettre dans la file jusqu'a ce que la file soit vide 
+# TODO : Faire en sorte de lancer une commande
+# TODO : Bien afficher le tableau, même si les cellules ne font pas la même taille
 
 #* Liens Utiles
 #* https://linuxize.com/post/bash-if-else-statement/
