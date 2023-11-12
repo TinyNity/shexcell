@@ -230,6 +230,30 @@ do
     lignes_table+=("$line")
 done < "$feuille_in"
 
+evaluate(){
+    if [ -z "$1" ] # La cellule est vide
+    then
+        return " "
+    fi
+    if [ $(print %.1s "$1") = "=" ] # La cellule n'est pas une commande
+    then
+        return $1
+    fi
+    # TODO : Faire que la cellule lance une commande
+}
+
+evaluate_file(){
+    for line in "${lignes_table[@]}"
+    do
+        line_array=()
+        readarray -d "$sep_colone" -t line_array <<< "$line"
+        for cell in "${line_array[@]}"
+        do
+            evaluate "$cell"
+        done
+    done
+}
+
 
 # Affichage du fichier
 afficher_table(){
@@ -252,7 +276,7 @@ afficher_table(){
     done
 }
 
-afficher_table
+evaluate_file
 
 
 # Test des paramètres
