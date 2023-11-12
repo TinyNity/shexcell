@@ -22,8 +22,8 @@ int main(void) {
     FILE* table;
     table = fopen("sampleTable.txt", "w");
 
-    int lines = 4;
-    int cols = 4;
+    int lines = 5;
+    int cols = 5;
 
     for (int i = 0; i < lines; i++) {
         for (int j = 0; j < cols; j++) {
