@@ -44,31 +44,6 @@ ln(){
 }
 
 # Victor
-# Fonction calculant la somme de l'intervalle passé en paramètre
-sommeIntervale(){
-	var1a=`echo $1 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
-	var2a=`echo $1 | sed -E 's/^l[0-9]+c([0-9]+)$/\1/g'`
-	var1b=`echo $2 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
-	var2b=`echo $2 | sed -E 's/^l[0-9]+c([0-9]+)$/\1/g'`
-	i="$var1a"
-	somme=0
-	while [ "$i" -le "$var2a" ]
-	do
-  		j="$var1b"
-  		while [ "$j" -le "$var2b" ]
-  		do
-			param="l${i}c${j}"
-    			getValue "$param"
-    			somme=`expr $somme + $res`
-			j=`expr $j + 1`
-  		done
-		i=`expr $i + 1`
-	done
-
-	res="$somme"
-}
-
-# Victor
 # Fonction calculant la moyenne de l'intervalle passé en paramètre
 moyenneIntervale(){
 	sommeIntervale "$1" "$2"
@@ -156,6 +131,34 @@ lines(){
 	res=`sed -n '$=' $1`
 }
 
+##***********************************
+##                myenne
+##***********************************
+# INPUT :  ça prend deux cellules en intervalle
+# OUTPUT : affiche la moyennes des toutes les cellules dans l'intervalle passé en paramètres
+# RETOUR : rien
+function moyenne
+{
+      # On doit avoir une sélection non nulle (division par zéro!!)
+    if [ $# -eq 0 ]
+    then
+      echo "la séléction est nulle"
+      # Si la séléction n'est pas nulle on divise la somme de tout les arguments sur le nombre d'éléments
+    else
+      echo "`somme $*` / $#" | bc -l
+    fi
+}
+
+##***********************************
+##                is_real
+##***********************************
+# INPUT :  une valeur numérique en sortie la somme de tout les nombres passés en arguments
+# OUTPUT : affichage de la valeur réelle du nombre passé en paramètre
+# RETOUR : rien
+function is_real
+{
+    echo $1 | grep -q -E "^([\+\-])?[0-9]+([.]{1}[0-9]+)?$"
+}
 
 # Variables du programme utilisées pour les paramètres de la fonction
 feuille_in="Null"
