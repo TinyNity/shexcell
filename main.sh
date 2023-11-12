@@ -14,10 +14,10 @@
 #* https://linuxize.com/post/bash-increment-decrement-variable/
 #* https://linuxhint.com/bash_operator_examples/#:~:text=Different%20types%20of%20operators%20exist,string%20operators%2C%20and%20file%20operators.
 
-# Commandes possibles dans le tableur
+#! Commandes possibles dans le tableur
 
 # Paul
-# Fonction récupérant la valeur d'une case
+#? Fonction récupérant la valeur d'une case
 getValue(){
 	lig=`echo $1 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
 	col=`echo $1 | sed -E 's/^l[0-9]+c([0-9]+)$/\1/g'`
@@ -26,25 +26,19 @@ getValue(){
 }
 
 # Paul
-# Fonction calculant l'exponentiel
-exp(){
-	res=`echo "scale=2;e($1)" | bc -l`	
-}
+# Retourne l'exponentiel de l'argument
+exp(){ res=`echo "scale=2;e($1)" | bc -l` }
 
 # Paul
-# Fonction calculant la racine carrée
-sqrt(){
-	res=`echo "scale=2;sqrt($1)" | bc -l`
-}
+# Retourne la racine carrée de l'argument
+sqrt(){ res=`echo "scale=2;sqrt($1)" | bc -l` }
 
 # Paul
-# Fonction calculant le logarithme népérien
-ln(){
-	res=`echo "scale=2;l($1)" | bc -l`
-}
+# Retourne le logarithme népérien de l'argument
+ln(){ res=`echo "scale=2;l($1)" | bc -l` }
 
 # Victor
-# Fonction calculant la moyenne de l'intervalle passé en paramètre
+# Retourne la moyenne de l'intervalle passé en paramètre
 moyenneIntervale(){
 	sommeIntervale "$1" "$2"
 	var1a=`echo $1 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
@@ -60,7 +54,7 @@ moyenneIntervale(){
 }
 
 # Victor
-# Fonction recherchant le minimum de l'intervalle passé en paramètre
+# Retourne le minimum dans l'intervalle passé en paramètre
 minIntervale(){
     var1a=`echo $1 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
 	var2a=`echo $1 | sed -E 's/^l[0-9]+c([0-9]+)$/\1/g'`
@@ -84,7 +78,7 @@ minIntervale(){
 }
 
 # Victor
-# Fonction recherchant le maximum de l'intervalle passé en paramètre
+# Retourne le maximum dans l'intervale passé en paramètre
 maxIntervale(){
     var1a=`echo $1 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
 	var2a=`echo $1 | sed -E 's/^l[0-9]+c([0-9]+)$/\1/g'`
@@ -107,58 +101,36 @@ maxIntervale(){
     res="$min"   
 }
 
-# Victor & Paul
+# Paul
 # Concatène deux paramètres
-concat(){
-	res="$1$2"
-}
+concat(){ res="$1$2" }
 
 # Victor & Paul
 # Donne la taille du mot passé en paramètre
-length(){
-	res=`expr length "$1"`
-}
+length(){ res=`expr length "$1"` }
 
 # Victor & Paul
 # Donne la taille du fichier passé en paramètre
-size(){
-	res=`wc -c < "$1"`
-}
+size(){ res=`wc -c < "$1"` }
 
 # Victor & Paul
 # Donne le nombre de ligne du fichier passé en paramètre
-lines(){
-	res=`sed -n '$=' $1`
-}
+lines() { res=`sed -n '$=' $1` }
 
-##***********************************
-##                myenne
-##***********************************
-# INPUT :  ça prend deux cellules en intervalle
-# OUTPUT : affiche la moyennes des toutes les cellules dans l'intervalle passé en paramètres
-# RETOUR : rien
-function moyenne
-{
-      # On doit avoir une sélection non nulle (division par zéro!!)
-    if [ $# -eq 0 ]
+# Paul 
+# Retourne la moyenne de la selection
+moyenne() {
+    if [ $# -eq 0 ] # Cas : Division par 0 
     then
-      echo "la séléction est nulle"
-      # Si la séléction n'est pas nulle on divise la somme de tout les arguments sur le nombre d'éléments
+        echo "NULL"
     else
-      echo "`somme $*` / $#" | bc -l
+        echo "`sommeIntervale $*` / $#" | bc -l
     fi
 }
 
-##***********************************
-##                is_real
-##***********************************
-# INPUT :  une valeur numérique en sortie la somme de tout les nombres passés en arguments
-# OUTPUT : affichage de la valeur réelle du nombre passé en paramètre
-# RETOUR : rien
-function is_real
-{
-    echo $1 | grep -q -E "^([\+\-])?[0-9]+([.]{1}[0-9]+)?$"
-}
+# Paul
+# Determine si l'argument est utilisable
+is_real() { echo $1 | grep -q -E "^([\+\-])?[0-9]+([.]{1}[0-9]+)?$" }
 
 # Variables du programme utilisées pour les paramètres de la fonction
 feuille_in="Null"
@@ -258,7 +230,7 @@ evaluate_file(){
 }
 
 
-# Affichage du fichier
+# Affichage de la table
 afficher_table(){
     reading_file_index=0
     echo "-----------------------------"
