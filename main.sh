@@ -6,7 +6,7 @@
 #\ Impossible de le stocker dans un array donc 
 #\ Pas de liste possible en shell donc il va faloir faire les calculs a la mano
 #\ et stocker le tout dans un fichier res
-#\ Pour l'effet recursif du truc faudrai un fichier buffer qui est comparré au fichier "final"
+#\ Pour l'effet recursif du truc, il faudrait un fichier buffer qui est comparré au fichier "final"
 #\ Si ils sont identique on a fini le tableur
 
 #* Liens Utiles
@@ -17,7 +17,7 @@
 #! Commandes possibles dans le tableur
 
 # Paul
-#? Fonction récupérant la valeur d'une case
+# Fonction récupérant la valeur d'une case
 getValue(){
 	lig=`echo $1 | sed -E 's/^l([0-9]+)c[0-9]+$/\1/g'`
 	col=`echo $1 | sed -E 's/^l[0-9]+c([0-9]+)$/\1/g'`
@@ -149,9 +149,9 @@ lines() { res=`sed -n '$=' $1` }
 moyenne() {
     if [ $# -eq 0 ] # Cas : Division par 0 
     then
-        echo "NULL"
+        res="NULL"
     else
-        echo "`sommeIntervale $*` / $#" | bc -l
+        res="`sommeIntervale $*` / $#" | bc -l
     fi
 }
 
@@ -232,6 +232,7 @@ do
     lignes_table+=("$line")
 done < "$feuille_in"
 
+# Evalue la cellule et utilise la bonne commande [WIP]
 evaluate(){
     if [ -z "$1" ] # La cellule est vide
     then
@@ -244,6 +245,7 @@ evaluate(){
     # TODO : Faire que la cellule lance une commande
 }
 
+# Evalue tout le fichier
 evaluate_file(){
     for line in "${lignes_table[@]}"
     do
