@@ -26,16 +26,43 @@ getValue(){
 }
 
 # Paul
-# Retourne l'exponentiel de l'argument
-exp(){ res=`echo "scale=2;e($1)" | bc -l` }
+#? Retourne l'exponentiel de l'argument utilisant les series de Taylor
+exp() {
+    local x=$1
+    local ret=1 
+    local term=1
+    for (( i=1; i<=10; i++ )); do
+        term=$(echo "$term * $x / $i" | bc -l)
+        ret=$(echo "$ret + $term" | bc -l)
+    done
+    echo $ret
+}
 
 # Paul
-# Retourne la racine carrée de l'argument
-sqrt(){ res=`echo "scale=2;sqrt($1)" | bc -l` }
+#? Retourne la racine carrée de l'argument utilisant la méthode Babylonienne
+sqrt() {
+    local n=$1
+    local x=$n
+    local y=$(echo "($n + 1) / 2" | bc -l)
+    while [[ $(echo "$x - $y" | bc -l) != 0 ]]; do
+        x=$y
+        y=$(echo "($n / $x + $x) / 2" | bc -l)
+    done
+    echo $y
+}
 
 # Paul
-# Retourne le logarithme népérien de l'argument
-ln(){ res=`echo "scale=2;l($1)" | bc -l` }
+#? Retourne le logarithme népérien de l'argument en utilisant les séries de Taylor
+ln() {
+    local x=$1
+    local term=$(echo "($x - 1) / ($x + 1)" | bc -l)
+    local sum=0
+    for (( i=1; i<=10; i+=2 )); do
+        local curr_term=$(echo "l($term^$i) / $i" | bc -l)
+        sum=$(echo "$sum + $curr_term" | bc -l)
+    done
+    echo $(echo "2 * $sum" | bc -l)
+}
 
 # Victor
 # Retourne la moyenne de l'intervalle passé en paramètre
@@ -208,7 +235,7 @@ done < "$feuille_in"
 evaluate(){
     if [ -z "$1" ] # La cellule est vide
     then
-        return " "
+        return " " # On retourne rien 
     fi
     if [ $(print %.1s "$1") = "=" ] # La cellule n'est pas une commande
     then
@@ -251,7 +278,7 @@ afficher_table(){
     done
 }
 
-evaluate_file
+afficher_table
 
 
 # Test des paramètres
